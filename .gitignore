@@ -1,3 +1,10 @@
+# Volt ignore
+bin/
+Makefile
+*.make
+.vscode/
+obj/
+
 # Prerequisites
 *.d
 

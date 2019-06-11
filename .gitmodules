@@ -1,0 +1,3 @@
+[submodule "Volt/vendor/spdlog"]
+	path = Volt/vendor/spdlog
+	url = https://github.com/gabime/spdlog
