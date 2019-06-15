@@ -12,18 +12,17 @@ namespace Volt {
         Application(int _argc, char **_argv) {}
         virtual ~Application() {}
 
-        int Run()
-        {
-            VOLT_INFO("RUNNING APP");
-            return 0;
-        }
+    public:
+        virtual int Run() = 0;
     };
+
+    Application *CreateApplication(int argc, char **argv);
 }
 
-#define PROGRAM_APPLICATION(ApplicationClass)   \
-    int main (int argc, char **argv)            \
-    {                                           \
-        Volt::Logger::Initialize();             \
-        ApplicationClass app(argc, argv);       \
-        return app.Run();                       \
-    }
+// Entry point
+int main (int argc, char **argv)
+{
+    Volt::Logger::Initialize();
+    auto app = Volt::CreateApplication(argc, argv);
+    return app->Run();
+}
