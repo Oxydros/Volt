@@ -23,6 +23,8 @@ namespace Volt {
 int main (int argc, char **argv)
 {
     Volt::Logger::Initialize();
-    auto app = Volt::CreateApplication(argc, argv);
-    return app->Run();
+    Volt::Application *app = Volt::CreateApplication(argc, argv);
+    int ret = app->Run();
+    delete app;
+    return ret;
 }
