@@ -1,3 +1,7 @@
 [submodule "Volt/vendor/spdlog"]
 	path = Volt/vendor/spdlog
 	url = https://github.com/gabime/spdlog
+[submodule "Volt/vendor/GLFW"]
+	path = Volt/vendor/GLFW
+	url = https://github.com/glfw/glfw.git
+	branch = latest
