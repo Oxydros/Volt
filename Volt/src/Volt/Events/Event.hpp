@@ -6,10 +6,12 @@ namespace Volt::Event {
 
     enum class EventType : uint8_t {
         NONE = 0,
-        //Windows event
+        //Windows events
         WINDOW_CLOSED, WINDOW_RESIZED, WINDOW_MOVED,
-        //Mouse Event
-        MOUSE_BUTTON_PRESSED, MOUSE_BUTTON_RELEASED, MOUSE_MOVED, MOUSE_SCROLLED
+        //Mouse events
+        MOUSE_BUTTON_PRESSED, MOUSE_BUTTON_RELEASED, MOUSE_MOVED, MOUSE_SCROLLED,
+        //Keyboard events,
+        KEY_PRESSED, KEY_RELEASED, KEY_REPEAT, KEY_TYPED
     };
 
     class Event

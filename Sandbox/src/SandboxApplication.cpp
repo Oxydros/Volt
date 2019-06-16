@@ -23,6 +23,24 @@ int SandboxApplication::Run()
     return 0;
 }
 
+void SandboxApplication::Stop()
+{
+    m_running = false;
+}
+
+bool SandboxApplication::handleEvent(Volt::Event::KeyPressedEvent const &event)
+{
+    VOLT_INFO("Got keyboard pressed key event {} !", event.GetKeyCode());
+    return true;
+}
+
+bool SandboxApplication::handleEvent(Volt::Event::WindowClosedEvent const &event)
+{
+    VOLT_INFO("Window closed event ! Stopping application");
+    Stop();
+    return true;
+}
+
 
 // -- Entry point
 Volt::Application *Volt::CreateApplication(int argc, char **argv)
