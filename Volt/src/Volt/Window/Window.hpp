@@ -1,9 +1,5 @@
 #pragma once
 
-#include <exception>
-#include <string>
-#include <memory>
-
 #include "Volt/Graphics/IContext.hpp"
 
 namespace Volt {

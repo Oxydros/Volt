@@ -1,4 +1,4 @@
-#include "Volt/Logger.hpp"
+#include "vpch.h"
 #include "Volt/Window/GLFW/Window.hpp"
 
 #include "Volt/Event.hpp"

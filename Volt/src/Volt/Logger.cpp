@@ -1,3 +1,4 @@
+#include "vpch.h"
 #include "Logger.hpp"
 
 namespace Volt

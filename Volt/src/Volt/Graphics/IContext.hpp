@@ -1,8 +1,5 @@
 #pragma once
 
-#include <exception>
-#include <string>
-
 namespace Volt::Graphics
 {
     class IContext

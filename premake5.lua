@@ -2,13 +2,6 @@ workspace "Volt"
    architecture "x64"
    configurations { "Debug", "Release" }
 
-   includedirs {
-      "Volt/vendor/spdlog/include",
-      "Volt/vendor/glad/include",
-      "Volt/vendor/GLFW/include",
-      "Volt/src"
-   }
-
    -- Compile GLFW static lib
    os.execute("cd Volt/vendor/GLFW && cmake -DBUILD_SHARED_LIBS=off . && make glfw")
 
@@ -17,30 +10,41 @@ workspace "Volt"
       "Volt/vendor/GLFW/src"
    }
 
+   outputdir = "%{cfg.buildcfg}-%{cfg.system}"
+
+
+   -- Sub project dependencies
+   include "Volt/vendor/glad"
+
 project "Volt"
    location "Volt"
    kind "StaticLib"
    language "C++"
    cppdialect "C++17"
 
-   targetdir "bin/%{cfg.buildcfg}-%{cfg.system}/%{prj.name}"
-   objdir "obj/%{cfg.buildcfg}-%{cfg.system}/%{prj.name}"
+   targetdir("bin/" .. outputdir .. "/%{prj.name}")
+   objdir("obj/" .. outputdir .. "/%{prj.name}")
+
+   pchheader "vpch.h"
+   pchsource "Volt/src/vpch.cpp"
 
    files { 
       "%{prj.name}/src/**.h",
+      "%{prj.name}/src/**.hpp",
       "%{prj.name}/src/**.cpp",
+   }
 
-      -- Include glad
-      "%{prj.name}/vendor/glad/**.c",
-      "%{prj.name}/vendor/glad/**.h",
+   includedirs {
+      "%{prj.name}/vendor/spdlog/include",
+      "%{prj.name}/vendor/glad/include",
+      "%{prj.name}/vendor/GLFW/include",
+      "%{prj.name}/src"
    }
 
    -- Link to third party libraries
    links {
       "glfw3",
-      "X11",
-      "pthread",
-      "dl"
+      "glad"
    }
 
    filter "configurations:Debug"
@@ -66,15 +70,19 @@ project "Sandbox"
 
    files { 
       "%{prj.name}/src/**.h",
+      "%{prj.name}/src/**.hpp",
       "%{prj.name}/src/**.cpp"
    }
 
    includedirs {
-      "Volt/src"
+      "Volt/vendor/spdlog/include",
+      "Volt/src",
+      "%{prj.name}/src"
    }
 
    links { 
       "Volt",
+      "glad",
       "glfw3",
       "X11",
       "pthread",

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Volt.hpp"
-#include "Volt/Window/Window.hpp"
 
 class SandboxApplication : public Volt::Application,
     public Volt::Event::EventListener<Volt::Event::KeyPressedEvent>,
