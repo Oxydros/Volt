@@ -5,7 +5,8 @@ workspace "Volt"
    includedirs {
       "Volt/vendor/spdlog/include",
       "Volt/vendor/glad/include",
-      "Volt/vendor/GLFW/include"
+      "Volt/vendor/GLFW/include",
+      "Volt/src"
    }
 
    -- Compile GLFW static lib
