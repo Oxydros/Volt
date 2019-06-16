@@ -28,6 +28,7 @@ namespace Volt {
 
         virtual void onUpdate() = 0;
         virtual Volt::Graphics::IContext *getGraphicContext() = 0;
+        virtual void *GetRawWindow() const = 0;
 
     //--- Retrieve Windows setting ---//
         inline int const &getHeight() const { return m_settings.Height; }

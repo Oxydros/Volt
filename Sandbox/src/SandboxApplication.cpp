@@ -41,6 +41,18 @@ bool SandboxApplication::handleEvent(Volt::Event::WindowClosedEvent const &event
     return true;
 }
 
+bool SandboxApplication::handleEvent(Volt::Event::WindowMovedEvent const &event)
+{
+    VOLT_INFO("Window Moved ! New pos: {} {}", event.GetX(), event.GetY());
+    return true;
+}
+
+bool SandboxApplication::handleEvent(Volt::Event::WindowResizeEvent const &event)
+{
+    VOLT_INFO("Window resized ! New size: {} {}", event.GetWidth(), event.GetHeight());
+    return true;
+}
+
 
 // -- Entry point
 Volt::Application *Volt::CreateApplication(int argc, char **argv)

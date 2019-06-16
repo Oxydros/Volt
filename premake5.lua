@@ -16,6 +16,32 @@ workspace "Volt"
    -- Sub project dependencies
    include "Volt/vendor/glad"
 
+project "ImGui"
+   location "Volt/vendor/ImGui"
+   kind "StaticLib"
+   language "C++"
+   cppdialect "C++17"
+
+   targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+   objdir ("obj/" .. outputdir .. "/%{prj.name}")
+
+   includedirs {
+      "Volt/vendor/ImGui"
+   }
+
+   files {
+       "Volt/vendor/ImGui/imconfig.h",
+       "Volt/vendor/ImGui/imgui.h",
+       "Volt/vendor/ImGui/imgui.cpp",
+       "Volt/vendor/ImGui/imgui_draw.cpp",
+       "Volt/vendor/ImGui/imgui_internal.h",
+       "Volt/vendor/ImGui/imgui_widgets.cpp",
+       "Volt/vendor/ImGui/imstb_rectpack.h",
+       "Volt/vendor/ImGui/imstb_textedit.h",
+       "Volt/vendor/ImGui/imstb_truetype.h",
+       "Volt/vendor/ImGui/imgui_demo.cpp"
+   }
+
 project "Volt"
    location "Volt"
    kind "StaticLib"
@@ -38,12 +64,14 @@ project "Volt"
       "%{prj.name}/vendor/spdlog/include",
       "%{prj.name}/vendor/glad/include",
       "%{prj.name}/vendor/GLFW/include",
+      "%{prj.name}/vendor/ImGui",
       "%{prj.name}/src"
    }
 
    -- Link to third party libraries
    links {
       "glfw3",
+      "ImGui",
       "glad"
    }
 
@@ -76,13 +104,17 @@ project "Sandbox"
 
    includedirs {
       "Volt/vendor/spdlog/include",
+      "Volt/vendor/ImGui",
+      "Volt/vendor/glad/include",
+      "Volt/vendor/GLFW/include",
       "Volt/src",
-      "%{prj.name}/src"
+      "%{prj.name}/src",
    }
 
    links { 
       "Volt",
       "glad",
+      "ImGui",
       "glfw3",
       "X11",
       "pthread",

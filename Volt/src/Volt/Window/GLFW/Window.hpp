@@ -16,6 +16,7 @@ namespace Volt::GLFW {
     public:
         void onUpdate() override;
         inline Volt::Graphics::IContext *getGraphicContext() override { return m_context; }
+        inline void *GetRawWindow() const override { return m_window; }
 
     private:
         static bool                 GLFW_Initialized;

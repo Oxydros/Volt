@@ -5,3 +5,7 @@
 	path = Volt/vendor/GLFW
 	url = https://github.com/glfw/glfw.git
 	branch = latest
+[submodule "Volt/vendor/ImGui"]
+	path = Volt/vendor/ImGui
+	url = https://github.com/ocornut/imgui
+	branch = docking
