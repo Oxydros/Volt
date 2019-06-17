@@ -61,10 +61,10 @@ project "Volt"
    }
 
    includedirs {
-      "%{prj.name}/vendor/spdlog/include",
-      "%{prj.name}/vendor/glad/include",
-      "%{prj.name}/vendor/GLFW/include",
-      "%{prj.name}/vendor/ImGui",
+      "Volt/vendor/spdlog/include",
+      "Volt/vendor/ImGui",
+      "Volt/vendor/glad/include",
+      "Volt/vendor/GLFW/include",
       "%{prj.name}/src"
    }
 
@@ -93,8 +93,8 @@ project "Sandbox"
    language "C++"
    cppdialect "C++17"
 
-   targetdir "bin/%{cfg.buildcfg}-%{cfg.system}/%{prj.name}"
-   objdir "obj/%{cfg.buildcfg}-%{cfg.system}/%{prj.name}"
+   targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+   objdir ("obj/" .. outputdir .. "/%{prj.name}")
 
    files { 
       "%{prj.name}/src/**.h",
@@ -113,9 +113,9 @@ project "Sandbox"
 
    links { 
       "Volt",
+      "glfw3",
       "glad",
       "ImGui",
-      "glfw3",
       "X11",
       "pthread",
       "dl"

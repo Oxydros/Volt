@@ -1,9 +1,10 @@
 #pragma once
 
-#include <glad/glad.h> 
-#include <GLFW/glfw3.h>
-
 #include "Volt/Graphics/IContext.hpp"
+
+//Foreward declaration to not include GLFW here
+//Or else problem with ImGui includes
+struct GLFWwindow;
 
 namespace Volt::Graphics::OpenGL
 {

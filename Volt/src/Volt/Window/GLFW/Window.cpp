@@ -3,6 +3,9 @@
 
 #include "Volt/Event.hpp"
 
+#include <glad/glad.h> 
+#include <GLFW/glfw3.h>
+
 namespace Volt::GLFW
 {
 

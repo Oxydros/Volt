@@ -1,6 +1,9 @@
 #include "vpch.h"
 #include "Volt/Graphics/OpenGL/Context.hpp"
 
+#include <glad/glad.h> 
+#include <GLFW/glfw3.h>
+
 namespace Volt::Graphics::OpenGL
 {
     Context::Context(GLFWwindow *glfw_window)

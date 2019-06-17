@@ -1,6 +1,6 @@
 # Volt ignore
 bin/
-Makefile
+**/Makefile
 *.make
 .vscode/
 obj/
