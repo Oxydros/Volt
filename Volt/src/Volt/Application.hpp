@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Volt/Logger.hpp"
+#include "Volt/Window/Window.hpp"
+#include "Volt/LayerStack.hpp"
 
 namespace Volt {
 
@@ -9,22 +11,25 @@ namespace Volt {
     {
     public:
 
-        Application(int _argc, char **_argv) {}
-        virtual ~Application() {}
+        Application(int _argc, char **_argv);
+        virtual ~Application();
 
     public:
-        virtual int Run() = 0;
+        void Run();
+        void Stop();
+
+        inline void PushLayer(Layer::LayerPtr layer) { m_renderingLayerStack.PushLayer(std::move(layer)); }
+        inline void PushOverlay(Layer::LayerPtr layer) { m_renderingLayerStack.PushOverlay(std::move(layer)); }
+
+    protected:
+        //TODO: add delta time
+        virtual void OnUpdate() = 0;
+
+    private:
+        bool                    m_running;
+        Volt::Window::WindowPtr m_window;
+        LayerStack              m_renderingLayerStack;
     };
 
     Application *CreateApplication(int argc, char **argv);
-}
-
-// Entry point
-int main (int argc, char **argv)
-{
-    Volt::Logger::Initialize();
-    Volt::Application *app = Volt::CreateApplication(argc, argv);
-    int ret = app->Run();
-    delete app;
-    return ret;
 }

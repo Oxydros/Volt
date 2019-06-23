@@ -4,6 +4,7 @@ bin/
 *.make
 .vscode/
 obj/
+imgui.ini
 
 # Prerequisites
 *.d

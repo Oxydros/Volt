@@ -105,8 +105,6 @@ project "Sandbox"
    includedirs {
       "Volt/vendor/spdlog/include",
       "Volt/vendor/ImGui",
-      "Volt/vendor/glad/include",
-      "Volt/vendor/GLFW/include",
       "Volt/src",
       "%{prj.name}/src",
    }

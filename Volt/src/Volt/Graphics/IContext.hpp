@@ -1,7 +1,11 @@
 #pragma once
 
+#include <string>
+#include <exception>
+
 namespace Volt::Graphics
 {
+    //Graphics API Context Interface
     class IContext
     {
     public:
@@ -11,6 +15,7 @@ namespace Volt::Graphics
     public:
         virtual bool Initialize() = 0;
         virtual void SwapBuffers() = 0;
+        virtual void *GetInnerWindow() const = 0;
     };
 }
 

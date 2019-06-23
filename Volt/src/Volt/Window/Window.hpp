@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #include "Volt/Graphics/IContext.hpp"
 
 namespace Volt {
@@ -26,15 +28,27 @@ namespace Volt {
         Window(WindowSettings const &settings) : m_settings(settings) {}
         virtual ~Window() {}
 
-        virtual void onUpdate() = 0;
-        virtual Volt::Graphics::IContext *getGraphicContext() = 0;
+        // -- ImGUI
+        //
+        //ImGui is dependant of the window for its context creation
+        //So we let it leave inside the window object
+        
+        //Initialize the ImGui context
+        virtual void InitializeImGuiContext() = 0;
+        //Begin the rendering ImGui content
+        virtual void ImGuiBegin() = 0;
+        //End the rendering of ImGui content
+        virtual void ImGuiEnd() = 0;
+
+        virtual void OnUpdate() = 0;
+        virtual Volt::Graphics::IContext *GetGraphicContext() = 0;
         virtual void *GetRawWindow() const = 0;
 
     //--- Retrieve Windows setting ---//
-        inline int const &getHeight() const { return m_settings.Height; }
-        inline int const &getWidth() const { return m_settings.Width; }
-        inline std::string const &getName() const { return m_settings.Name; }
-        inline WindowSettings const &getSettings() const { return m_settings; }
+        inline int const &GetHeight() const { return m_settings.Height; }
+        inline int const &GetWidth() const { return m_settings.Width; }
+        inline std::string const &GetName() const { return m_settings.Name; }
+        inline WindowSettings const &GetSettings() const { return m_settings; }
 
     private:
         WindowSettings  m_settings;

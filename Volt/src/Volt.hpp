@@ -4,3 +4,5 @@
 #include "Volt/Application.hpp"
 #include "Volt/Event.hpp"
 #include "Volt/Window/Window.hpp"
+
+#include "Volt/entry.hpp"

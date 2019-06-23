@@ -17,6 +17,7 @@ namespace Volt::Graphics::OpenGL
     public:
         bool Initialize() override;
         void SwapBuffers() override;
+        void *GetInnerWindow() const override { return m_window; }
 
     private:
         GLFWwindow      *m_window;

@@ -1,8 +1,11 @@
 #include "vpch.h"
-#include "Volt/Window/GLFW/Window.hpp"
 
+// -- Volt
+#include "Volt/Window/GLFW/Window.hpp"
+#include "Volt/ImGui/GLFW/ImGuiContext.hpp"
 #include "Volt/Event.hpp"
 
+// -- Glad and GLFW
 #include <glad/glad.h> 
 #include <GLFW/glfw3.h>
 
@@ -127,6 +130,8 @@ namespace Volt::GLFW
 
     GLFW::Window::~Window()
     {
+        //Force deletion before context or else we get a segfault
+        m_imGuiContext.reset();
         //Delete context here -- TODO: smart pointers
         delete m_context;
         glfwDestroyWindow(m_window);
@@ -134,7 +139,24 @@ namespace Volt::GLFW
         glfwTerminate();
     }
 
-    void GLFW::Window::onUpdate()
+    void GLFW::Window::InitializeImGuiContext()
+    {
+        m_imGuiContext = Volt::GUI::ImGuiContext::CreateContext(this);
+    }
+
+    void GLFW::Window::ImGuiBegin()
+    {
+        if (m_imGuiContext)
+            m_imGuiContext->BeginDraw();
+    }
+
+    void GLFW::Window::ImGuiEnd()
+    {
+        if (m_imGuiContext)
+            m_imGuiContext->EndDraw();
+    }
+
+    void GLFW::Window::OnUpdate()
     {
         glfwPollEvents();
         m_context->SwapBuffers();

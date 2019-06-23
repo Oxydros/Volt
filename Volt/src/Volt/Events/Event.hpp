@@ -22,7 +22,7 @@ namespace Volt::Event {
 
         inline void handle() { m_handled = true; }
         inline bool IsHandled() const { return m_handled; }
-        inline EventType getType() const { return m_type; }
+        inline EventType GetType() const { return m_type; }
 
     private:
         bool        m_handled;
@@ -33,15 +33,15 @@ namespace Volt::Event {
     class EventListener
     {
     public:
-        EventListener() { attach(); }
-        virtual ~EventListener(){ detach(); }
+        EventListener() { Attach(); }
+        virtual ~EventListener(){ Detach(); }
 
-        void attach()
+        void Attach()
         {
             _handlers.push_back(this);
         }
 
-        void detach()
+        void Detach()
         {
             auto it = std::find(_handlers.begin(), _handlers.end(), this);
             if (it != _handlers.end()) {
