@@ -1,0 +1,14 @@
+#pragma once
+
+#define VOLT_MOUSE_BUTTON_1         0
+#define VOLT_MOUSE_BUTTON_2         1
+#define VOLT_MOUSE_BUTTON_3         2
+#define VOLT_MOUSE_BUTTON_4         3
+#define VOLT_MOUSE_BUTTON_5         4
+#define VOLT_MOUSE_BUTTON_6         5
+#define VOLT_MOUSE_BUTTON_7         6
+#define VOLT_MOUSE_BUTTON_8         7
+#define VOLT_MOUSE_BUTTON_LAST      VOLT_MOUSE_BUTTON_8
+#define VOLT_MOUSE_BUTTON_LEFT      VOLT_MOUSE_BUTTON_1
+#define VOLT_MOUSE_BUTTON_RIGHT     VOLT_MOUSE_BUTTON_2
+#define VOLT_MOUSE_BUTTON_MIDDLE    VOLT_MOUSE_BUTTON_3

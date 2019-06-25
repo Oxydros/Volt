@@ -12,13 +12,19 @@ SandboxApplication::SandboxApplication(int _argc, char **_argv)
 
 void SandboxApplication::OnUpdate()
 {
-    // Volt::Event::TestEvent test;
-    // Volt::Event::DispatchEvent(test);
+    
 }
 
 bool SandboxApplication::handleEvent(Volt::Event::KeyPressedEvent const &event)
 {
     VOLT_INFO("Got keyboard pressed key event {} !", event.GetKeyCode());
+    switch (event.GetKeyCode()){
+        case VOLT_KEY_ESCAPE:
+            {
+                Stop();
+                break;
+            }
+    }
     return true;
 }
 

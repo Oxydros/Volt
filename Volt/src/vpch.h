@@ -18,3 +18,5 @@
 #include <unordered_set>
 
 #include "Volt/Logger.hpp"
+#include "Volt/MouseCode.h"
+#include "Volt/KeyCode.h"
