@@ -19,4 +19,10 @@ public:
 
 protected:
     void OnUpdate() override;
+
+private:
+    unsigned int m_vertexBuffer;
+    unsigned int m_vertexArrayObj;
+    unsigned int m_indexBuffer;
+    unsigned int m_shaderProgram;
 };

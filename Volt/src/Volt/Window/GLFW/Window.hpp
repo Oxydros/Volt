@@ -19,6 +19,7 @@ namespace Volt::GLFW {
         void ImGuiBegin() override;
         void ImGuiEnd() override;
 
+        void Clear() override;
         void OnUpdate() override;
         inline Volt::Graphics::IContext *GetGraphicContext() override { return m_context; }
         inline void *GetRawWindow() const override { return m_window; }

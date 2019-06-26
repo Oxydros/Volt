@@ -23,6 +23,8 @@ namespace Volt
         VOLT_INFO("Running...");
         while (m_running)
         {
+            m_window->Clear();
+
             // Application logic
             OnUpdate();
 

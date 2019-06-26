@@ -40,6 +40,7 @@ namespace Volt {
         //End the rendering of ImGui content
         virtual void ImGuiEnd() = 0;
 
+        virtual void Clear() = 0;
         virtual void OnUpdate() = 0;
         virtual Volt::Graphics::IContext *GetGraphicContext() = 0;
         virtual void *GetRawWindow() const = 0;

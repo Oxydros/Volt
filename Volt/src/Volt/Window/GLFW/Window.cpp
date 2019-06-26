@@ -156,6 +156,12 @@ namespace Volt::GLFW
             m_imGuiContext->EndDraw();
     }
 
+    void GLFW::Window::Clear()
+    {
+		glClearColor(0.1f, 0.1f, 0.1f, 1);
+        glClear(GL_COLOR_BUFFER_BIT);
+    }
+
     void GLFW::Window::OnUpdate()
     {
         glfwPollEvents();
