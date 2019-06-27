@@ -26,27 +26,6 @@ void main()
 }
 )";
 
-
-int CompileShader(char *shaderSrc, GLenum shaderType)
-{
-    unsigned int shaderId = glCreateShader(shaderType);
-    VOLT_ASSERT(shaderId != 0, "Couldn't create GL Shader")
-
-    glShaderSource(shaderId, 1, &shaderSrc, NULL);
-    glCompileShader(shaderId);
-
-    int  success;
-    char infoLog[512];
-    glGetShaderiv(shaderId, GL_COMPILE_STATUS, &success);
-
-    if(!success)
-    {
-        glGetShaderInfoLog(shaderId, 512, NULL, infoLog);
-        VOLT_ASSERT(false, "Error while COMPILING shader : {}", infoLog);
-    }
-    return shaderId;
-}
-
 SandboxApplication::SandboxApplication(int _argc, char **_argv)
     : Volt::Application(_argc, _argv)
 {
@@ -55,25 +34,7 @@ SandboxApplication::SandboxApplication(int _argc, char **_argv)
 
     // Application::PushOverlay(imGuiLayer);
 
-    int vertexShader = CompileShader(vertexShaderSrc, GL_VERTEX_SHADER);
-    int pixelShader = CompileShader(pixelShaderSrc, GL_FRAGMENT_SHADER);
-
-    m_shaderProgram = glCreateProgram();
-
-    glAttachShader(m_shaderProgram, vertexShader);
-    glAttachShader(m_shaderProgram, pixelShader);
-    glLinkProgram(m_shaderProgram);
-
-    int  success;
-    char infoLog[512];
-    glGetProgramiv(m_shaderProgram, GL_LINK_STATUS, &success);
-    if(!success) {
-        glGetProgramInfoLog(m_shaderProgram, 512, NULL, infoLog);
-        VOLT_ASSERT(false, "Error while LINKING shaders in program : {}", infoLog);
-    }
-
-    glDeleteShader(vertexShader);
-    glDeleteShader(pixelShader);
+    m_shader = Volt::Graphics::Shader::CreateShader(vertexShaderSrc, pixelShaderSrc);
 
     glGenVertexArrays(1, &m_vertexArrayObj);
     glBindVertexArray(m_vertexArrayObj);
@@ -112,7 +73,7 @@ SandboxApplication::SandboxApplication(int _argc, char **_argv)
 
 void SandboxApplication::OnUpdate()
 {
-    glUseProgram(m_shaderProgram);
+    m_shader->Bind();
     glBindVertexArray(m_vertexArrayObj);
 
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
