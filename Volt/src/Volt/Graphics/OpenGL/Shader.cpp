@@ -7,7 +7,7 @@
 namespace Volt::Graphics::OpenGL
 {
     Shader::Shader(std::string const &vertexSrc, std::string const &pixelSrc)
-        : m_programID(0)
+        : m_programId(0)
     {
 
         int  success;
@@ -47,15 +47,15 @@ namespace Volt::Graphics::OpenGL
             VOLT_ASSERT(false, "Error while COMPILING pixel shader : {}", infoLog);
         }
 
-        m_programID = glCreateProgram();
+        m_programId = glCreateProgram();
 
-        glAttachShader(m_programID, vertexShaderID);
-        glAttachShader(m_programID, pixelShaderID);
-        glLinkProgram(m_programID);
+        glAttachShader(m_programId, vertexShaderID);
+        glAttachShader(m_programId, pixelShaderID);
+        glLinkProgram(m_programId);
 
-        glGetProgramiv(m_programID, GL_LINK_STATUS, &success);
+        glGetProgramiv(m_programId, GL_LINK_STATUS, &success);
         if(!success) {
-            glGetProgramInfoLog(m_programID, 512, NULL, infoLog);
+            glGetProgramInfoLog(m_programId, 512, NULL, infoLog);
             VOLT_ASSERT(false, "Error while LINKING shaders in program : {}", infoLog);
         }
 
@@ -65,12 +65,12 @@ namespace Volt::Graphics::OpenGL
 
     Shader::~Shader()
     {
-        glDeleteProgram(m_programID);
+        glDeleteProgram(m_programId);
     }
 
     void Shader::Bind()
     {
-        glUseProgram(m_programID);
+        glUseProgram(m_programId);
     }
 }
 

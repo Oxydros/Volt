@@ -36,10 +36,9 @@ SandboxApplication::SandboxApplication(int _argc, char **_argv)
 
     m_shader = Volt::Graphics::Shader::CreateShader(vertexShaderSrc, pixelShaderSrc);
 
-    glGenVertexArrays(1, &m_vertexArrayObj);
-    glBindVertexArray(m_vertexArrayObj);
+    m_vertexArray = Volt::Graphics::VertexArray::Create();
 
-    static float vertices[] = {
+    float vertices[] = {
         -0.5f, -0.5f, 0.0f, // Bot L
         0.5f, -0.5f, 0.0f, // Bot R
         // 0.0f,  0.5f, 0.0f, // Top
@@ -47,34 +46,26 @@ SandboxApplication::SandboxApplication(int _argc, char **_argv)
         0.5f, 0.5f, 0.0f // Top R
     };
 
-    //Create buffer and bind it
-    glGenBuffers(1, &m_vertexBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
-    //Fill it
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    auto vertexBuffer = Volt::Graphics::VertexBuffer::Create(vertices, sizeof(vertices) / sizeof(float));
+    vertexBuffer->SetLayout({
+        {Volt::Graphics::VertexElementType::VEC_3F}
+    });
+    m_vertexArray->AddVertexBuffer(vertexBuffer);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);  
-
-    static int indices[] = {
+    int indices[] = {
         2, 0, 1,
         3, 2, 1
     };
+    auto indexBuffer = Volt::Graphics::IndexBuffer::Create(indices, sizeof(indices) / sizeof(int));
+    m_vertexArray->SetIndexBuffer(indexBuffer);
 
-    glGenBuffers(1, &m_indexBuffer);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_indexBuffer);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-    //Unbind
-    glBindVertexArray(0);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    m_vertexArray->Unbind();
 }
 
 void SandboxApplication::OnUpdate()
 {
     m_shader->Bind();
-    glBindVertexArray(m_vertexArrayObj);
+    m_vertexArray->Bind();
 
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }

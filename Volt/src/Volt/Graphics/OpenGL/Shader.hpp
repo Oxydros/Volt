@@ -13,6 +13,6 @@ namespace Volt::Graphics::OpenGL
         void Bind() override;
 
     private:
-        unsigned int    m_programID;
+        uint32_t    m_programId;
     };
 }

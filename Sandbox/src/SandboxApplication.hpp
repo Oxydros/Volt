@@ -3,6 +3,7 @@
 #include "Volt.hpp"
 
 #include "Volt/Graphics/Shader.hpp"
+#include "Volt/Graphics/Buffers.hpp"
 
 class SandboxApplication : public Volt::Application,
     public Volt::Event::EventListener<Volt::Event::KeyPressedEvent>,
@@ -23,8 +24,7 @@ protected:
     void OnUpdate() override;
 
 private:
-    unsigned int                        m_vertexBuffer;
-    unsigned int                        m_vertexArrayObj;
-    unsigned int                        m_indexBuffer;
-    Volt::Graphics::Shader::ShaderPtr   m_shader;
+    unsigned int                                        m_vertexArrayObj;
+    Volt::Graphics::Shader::ShaderPtr                   m_shader;
+    Volt::Graphics::VertexArray::VertexArrayPtr         m_vertexArray;
 };
