@@ -14,7 +14,8 @@ namespace Volt::Graphics::OpenGL
     public:
         void Bind() override;
         void Unbind() override;
-        void SetLayout(VertexBufferLayout &&layout) override { m_layout = layout; }
+        void SetLayout(VertexBufferLayout const &&layout) override { m_layout = layout; }
+        void SetLayout(VertexBufferLayout const &layout) override { m_layout = layout; }
         VertexBufferLayout const &GetLayout() const override { return m_layout; }
 
     private:

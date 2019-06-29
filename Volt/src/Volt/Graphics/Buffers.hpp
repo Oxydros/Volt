@@ -11,8 +11,8 @@ namespace Volt::Graphics
     enum class VertexElementType : u_int8_t
     {
         UNKNOWN = 0,
-        FLOAT, VEC_3F, MAT_3F, MAT_4F,
-        INT, VEC_3I, MAT_3I, MAT_4I
+        FLOAT, VEC_3F, VEC_4F, MAT_3F, MAT_4F,
+        INT, VEC_3I, VEC_4I, MAT_3I, MAT_4I
     };
 
     //Return the size in byte of a VertexElementType
@@ -36,19 +36,22 @@ namespace Volt::Graphics
 
             Element(VertexElementType type, bool normalized = false)
                 : type(type), normalized(normalized),
-                byteSize(GetVertexElementSize(type)), primitiveCount(GetVertexElementCount(type))
+                byteSize(GetVertexElementSize(type)), primitiveCount(GetVertexElementCount(type)), offset(0)
             {}
         };
 
     public:
-        VertexBufferLayout(std::vector<Element> const &elements = {});
+        VertexBufferLayout() {}
+        VertexBufferLayout(std::initializer_list<Element> const &elements);
         ~VertexBufferLayout() = default;
 
     public:
         inline std::vector<Element> const &GetElements() const { return m_elements; }
+        inline size_t GetStride () const { return m_stride; }
 
     private:
         std::vector<Element>    m_elements;
+        size_t                  m_stride;
     };
 
     //Logic representation of the vertices
@@ -67,7 +70,8 @@ namespace Volt::Graphics
     public:
         virtual void Bind() = 0;
         virtual void Unbind() = 0;
-        virtual void SetLayout(VertexBufferLayout &&) = 0;
+        virtual void SetLayout(VertexBufferLayout const &&) = 0;
+        virtual void SetLayout(VertexBufferLayout const &) = 0;
         virtual VertexBufferLayout const &GetLayout() const = 0;
     };
 

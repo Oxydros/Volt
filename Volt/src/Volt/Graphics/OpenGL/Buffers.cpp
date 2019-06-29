@@ -13,12 +13,14 @@ GLenum VertexElementTypeToOpenGL(Volt::Graphics::VertexElementType type)
         //FLOAT
         case VertexElementType::FLOAT:
         case VertexElementType::VEC_3F:
+        case VertexElementType::VEC_4F:
         case VertexElementType::MAT_3F:
         case VertexElementType::MAT_4F:
             return GL_FLOAT;
         //INT
         case VertexElementType::INT:
         case VertexElementType::VEC_3I:
+        case VertexElementType::VEC_4I:
         case VertexElementType::MAT_3I:
         case VertexElementType::MAT_4I:
             return GL_INT;
@@ -107,12 +109,15 @@ namespace Volt::Graphics::OpenGL
     {
         uint32_t index = 0;
 
+        auto layout = vertexBuffer->GetLayout();
+
         glBindVertexArray(m_arrayObjectId);
         vertexBuffer->Bind();
-        for (auto const &element : vertexBuffer->GetLayout().GetElements())
+        for (auto const &element : layout.GetElements())
         {
-            glVertexAttribPointer(index, element.primitiveCount, GL_FLOAT, element.normalized,
-                                    element.byteSize, (void*)element.offset);
+            GLenum type = VertexElementTypeToOpenGL(element.type);
+            glVertexAttribPointer(index, element.primitiveCount, type, element.normalized ? GL_TRUE : GL_FALSE,
+                                    layout.GetStride(), (void*)element.offset);
             glEnableVertexAttribArray(index);
             index++;
         }

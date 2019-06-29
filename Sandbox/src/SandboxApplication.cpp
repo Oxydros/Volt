@@ -8,21 +8,27 @@ R"(
 #version 400 core
 
 layout (location = 0) in vec3 inPos;
+layout (location = 1) in vec4 inColor;
+
+out vec4 vertexColor;
 
 void main()
 {
     gl_Position = vec4(inPos.x, inPos.y, inPos.z, 1.0);
+    vertexColor = inColor;
 }
 )";
 
 char pixelShaderSrc[] =
 R"(
 #version 330 core
-out vec4 FragColor;
+out vec4 pixelColor;
+
+in vec4 vertexColor;
 
 void main()
 {
-    FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);
+    pixelColor = vertexColor;
 }
 )";
 
@@ -39,16 +45,17 @@ SandboxApplication::SandboxApplication(int _argc, char **_argv)
     m_vertexArray = Volt::Graphics::VertexArray::Create();
 
     float vertices[] = {
-        -0.5f, -0.5f, 0.0f, // Bot L
-        0.5f, -0.5f, 0.0f, // Bot R
+        -0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,// Bot L
+        0.5f, -0.5f, 0.0f, 0.2f, 0.2f, 0.2f, 1.0f, // Bot R
         // 0.0f,  0.5f, 0.0f, // Top
-        -0.5f, 0.5f, 0.0f, //Top L
-        0.5f, 0.5f, 0.0f // Top R
+        -0.5f, 0.5f, 0.0f, 0.2f, 0.8f, 0.3f, 1.0f,//Top L
+        0.5f, 0.5f, 0.0f, 0.2f, 0.3f, 0.8f, 1.0f,// Top R
     };
 
     auto vertexBuffer = Volt::Graphics::VertexBuffer::Create(vertices, sizeof(vertices) / sizeof(float));
     vertexBuffer->SetLayout({
-        {Volt::Graphics::VertexElementType::VEC_3F}
+        {Volt::Graphics::VertexElementType::VEC_3F},
+        {Volt::Graphics::VertexElementType::VEC_4F}
     });
     m_vertexArray->AddVertexBuffer(vertexBuffer);
 
