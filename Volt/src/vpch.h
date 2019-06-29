@@ -17,6 +17,8 @@
 #include <unordered_map>
 #include <unordered_set>
 
+#include <glm/glm.hpp>
+
 #include "Volt/Core.hpp"
 #include "Volt/Logger.hpp"
 #include "Volt/MouseCode.h"

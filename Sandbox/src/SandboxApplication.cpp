@@ -26,9 +26,11 @@ out vec4 pixelColor;
 
 in vec4 vertexColor;
 
+uniform vec4 ourColor;
+
 void main()
 {
-    pixelColor = vertexColor;
+    pixelColor = ourColor;
 }
 )";
 
@@ -67,6 +69,8 @@ SandboxApplication::SandboxApplication(int _argc, char **_argv)
     m_vertexArray->SetIndexBuffer(indexBuffer);
 
     m_vertexArray->Unbind();
+
+    m_shader->SetVec4f("ourColor", glm::vec4(0.2f, 0.4f, 0.3f, 1.0f));
 }
 
 void SandboxApplication::OnUpdate()

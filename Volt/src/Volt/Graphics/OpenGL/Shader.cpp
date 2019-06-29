@@ -72,6 +72,30 @@ namespace Volt::Graphics::OpenGL
     {
         glUseProgram(m_programId);
     }
+
+    void Shader::SetFloat(std::string const &uniform_name, float value)
+    {
+        int uniformLocation = glGetUniformLocation(m_programId, uniform_name.c_str());
+        VOLT_ASSERT(uniformLocation != -1, "Unable to find uniform {} in shader", uniform_name);
+        glUseProgram(m_programId);
+        glUniform1f(uniformLocation, value);
+    }
+
+    void Shader::SetVec3f(std::string const &uniform_name, glm::vec3 const &value)
+    {
+        int uniformLocation = glGetUniformLocation(m_programId, uniform_name.c_str());
+        VOLT_ASSERT(uniformLocation != -1, "Unable to find uniform {} in shader", uniform_name);
+        glUseProgram(m_programId);
+        glUniform3f(uniformLocation, value.x, value.y, value.z);
+    }
+
+    void Shader::SetVec4f(std::string const &uniform_name, glm::vec4 const &value)
+    {
+        int uniformLocation = glGetUniformLocation(m_programId, uniform_name.c_str());
+        VOLT_ASSERT(uniformLocation != -1, "Unable to find uniform {} in shader", uniform_name);
+        glUseProgram(m_programId);
+        glUniform4f(uniformLocation, value.x, value.y, value.z, value.w);
+    }
 }
 
 Volt::Graphics::Shader::ShaderPtr Volt::Graphics::Shader::CreateShader(std::string const &vertexSrc, std::string const &pixelSrc)

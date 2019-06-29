@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <glm/glm.hpp>
 
 namespace Volt::Graphics
 {
@@ -16,5 +17,10 @@ namespace Volt::Graphics
         virtual ~Shader() = default;
 
         virtual void Bind() = 0;
+
+        //TODO === Improve this
+        virtual void SetFloat(std::string const &uniform_name, float value) = 0;
+        virtual void SetVec3f(std::string const &uniform_name, glm::vec3 const &value) = 0;
+        virtual void SetVec4f(std::string const &uniform_name, glm::vec4 const &value) = 0;
     };
 }

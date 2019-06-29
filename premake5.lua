@@ -65,6 +65,7 @@ project "Volt"
       "Volt/vendor/ImGui",
       "Volt/vendor/glad/include",
       "Volt/vendor/GLFW/include",
+      "Volt/vendor/glm/include",
       "%{prj.name}/src"
    }
 
