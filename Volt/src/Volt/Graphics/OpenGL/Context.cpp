@@ -42,6 +42,7 @@ namespace Volt::Graphics::OpenGL
         glEnable              ( GL_DEBUG_OUTPUT );
         glDebugMessageCallback( OpenGLGraphicContextError, 0 );
 #endif
+        glEnable(GL_DEPTH_TEST);
         return true;
     }
 

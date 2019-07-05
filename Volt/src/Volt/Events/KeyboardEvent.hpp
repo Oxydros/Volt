@@ -20,15 +20,14 @@ namespace Volt::Event {
     class KeyPressedEvent : public KeyboardEvent
     {
     public:
-        KeyPressedEvent(int keyCode) : KeyboardEvent(EventType::KEY_PRESSED, keyCode) {}
+        KeyPressedEvent(int keyCode, bool repeat = false)
+            : KeyboardEvent(EventType::KEY_PRESSED, keyCode), m_repeat(repeat) {}
         virtual ~KeyPressedEvent() {}
-    };
 
-    class KeyRepeatEvent : public KeyboardEvent
-    {
-    public:
-        KeyRepeatEvent(int keyCode) : KeyboardEvent(EventType::KEY_REPEAT, keyCode) {}
-        virtual ~KeyRepeatEvent() {}
+        bool IsRepeat() const { return m_repeat; }
+
+    protected:
+        bool    m_repeat;
     };
 
     class KeyReleasedEvent : public KeyboardEvent

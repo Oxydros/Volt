@@ -74,7 +74,7 @@ namespace Volt::GLFW
 
                 case GLFW_REPEAT:
                 {
-                    Event::KeyRepeatEvent event(key);
+                    Event::KeyPressedEvent event(key, true);
                     Event::DispatchEvent(event);
                     break;
                 }
@@ -108,11 +108,13 @@ namespace Volt::GLFW
                 {
                     Event::MouseButtonPressedEvent event(button);
                     Event::DispatchEvent(event);
+                    break;
                 }
                 case GLFW_RELEASE:
                 {
                     Event::MouseButtonReleasedEvent event(button);
                     Event::DispatchEvent(event);
+                    break;
                 }
             }
         });
@@ -159,7 +161,7 @@ namespace Volt::GLFW
     void GLFW::Window::Clear()
     {
 		glClearColor(0.1f, 0.1f, 0.1f, 1);
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
     }
 
     void GLFW::Window::OnUpdate()

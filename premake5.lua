@@ -107,6 +107,7 @@ project "Sandbox"
       "Volt/vendor/spdlog/include",
       "Volt/vendor/glad/include",
       "Volt/vendor/ImGui",
+      "Volt/vendor/glm/include",
       "Volt/src",
       "%{prj.name}/src",
    }

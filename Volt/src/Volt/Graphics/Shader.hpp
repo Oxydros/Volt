@@ -22,5 +22,8 @@ namespace Volt::Graphics
         virtual void SetFloat(std::string const &uniform_name, float value) = 0;
         virtual void SetVec3f(std::string const &uniform_name, glm::vec3 const &value) = 0;
         virtual void SetVec4f(std::string const &uniform_name, glm::vec4 const &value) = 0;
+
+        virtual void SetMat3f(std::string const &uniform_name, glm::mat3 const &value) = 0;
+        virtual void SetMat4f(std::string const &uniform_name, glm::mat4 const &value) = 0;
     };
 }

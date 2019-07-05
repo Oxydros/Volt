@@ -16,6 +16,9 @@ namespace Volt::Graphics::OpenGL
         void SetVec3f(std::string const &uniform_name, glm::vec3 const &value) override;
         void SetVec4f(std::string const &uniform_name, glm::vec4 const &value) override;
 
+        void SetMat3f(std::string const &uniform_name, glm::mat3 const &value) override;
+        void SetMat4f(std::string const &uniform_name, glm::mat4 const &value) override;
+
     private:
         uint32_t    m_programId;
     };

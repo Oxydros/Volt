@@ -73,6 +73,7 @@ namespace Volt::Graphics::OpenGL
         glUseProgram(m_programId);
     }
 
+    //Quick and dirty to setup camera system asap
     void Shader::SetFloat(std::string const &uniform_name, float value)
     {
         int uniformLocation = glGetUniformLocation(m_programId, uniform_name.c_str());
@@ -95,6 +96,22 @@ namespace Volt::Graphics::OpenGL
         VOLT_ASSERT(uniformLocation != -1, "Unable to find uniform {} in shader", uniform_name);
         glUseProgram(m_programId);
         glUniform4f(uniformLocation, value.x, value.y, value.z, value.w);
+    }
+
+    void Shader::SetMat3f(std::string const &uniform_name, glm::mat3 const &value)
+    {
+        int uniformLocation = glGetUniformLocation(m_programId, uniform_name.c_str());
+        VOLT_ASSERT(uniformLocation != -1, "Unable to find uniform {} in shader", uniform_name);
+        glUseProgram(m_programId);
+        glUniformMatrix3fv(uniformLocation, 1, GL_FALSE, &value[0][0]);
+    }
+
+    void Shader::SetMat4f(std::string const &uniform_name, glm::mat4 const &value)
+    {
+        int uniformLocation = glGetUniformLocation(m_programId, uniform_name.c_str());
+        VOLT_ASSERT(uniformLocation != -1, "Unable to find uniform {} in shader", uniform_name);
+        glUseProgram(m_programId);
+        glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, &value[0][0]);
     }
 }
 

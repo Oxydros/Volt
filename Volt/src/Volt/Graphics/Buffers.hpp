@@ -60,7 +60,7 @@ namespace Volt::Graphics
     public:
         typedef std::shared_ptr<VertexBuffer> VertexBufferPtr;
 
-        static VertexBufferPtr Create(float *vertices, size_t count);
+        static VertexBufferPtr Create(float const *vertices, size_t count);
         static VertexBufferPtr Create(std::vector<float> const &vertices);
 
     public:
@@ -81,7 +81,7 @@ namespace Volt::Graphics
     public:
         typedef std::shared_ptr<IndexBuffer> IndexBufferPtr;
 
-        static IndexBufferPtr Create(int *indices, size_t count);
+        static IndexBufferPtr Create(int const *indices, size_t count);
         static IndexBufferPtr Create(std::vector<int> const &indices);
 
     public:

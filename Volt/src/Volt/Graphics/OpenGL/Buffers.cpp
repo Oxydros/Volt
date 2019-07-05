@@ -140,7 +140,7 @@ namespace Volt::Graphics
         return std::make_shared<Volt::Graphics::OpenGL::VertexArray>();
     }    
 
-    VertexBuffer::VertexBufferPtr VertexBuffer::Create(float *vertices, size_t count)
+    VertexBuffer::VertexBufferPtr VertexBuffer::Create(float const *vertices, size_t count)
     {
         return std::make_shared<Volt::Graphics::OpenGL::VertexBuffer>(vertices, count);
     }
@@ -150,7 +150,7 @@ namespace Volt::Graphics
         return std::make_shared<Volt::Graphics::OpenGL::VertexBuffer>(vertices.data(), vertices.size());
     }
 
-    IndexBuffer::IndexBufferPtr IndexBuffer::Create(int *indices, size_t count)
+    IndexBuffer::IndexBufferPtr IndexBuffer::Create(int const *indices, size_t count)
     {
         return std::make_shared<Volt::Graphics::OpenGL::IndexBuffer>(indices, count);
     }
