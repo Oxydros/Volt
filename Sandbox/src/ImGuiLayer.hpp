@@ -33,8 +33,6 @@ private:
     bool m_show_demo_window = true;
     bool m_show_another_window = false;
 
-    // unsigned int                                        m_texture1;
-    // unsigned int                                        m_texture2;
     float                                               m_mix;
 
     Volt::Graphics::Texture::TexturePtr                 m_texture1;
@@ -45,6 +43,6 @@ private:
     glm::vec3                                           m_rot;
     glm::vec3                                           m_pos;
 
-    Volt::World::Camera                                 m_camera;
+    Volt::World::PerspectiveCamera                      m_camera;
     bool                                                m_mousePressed;
 };

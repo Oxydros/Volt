@@ -9,19 +9,21 @@ namespace Volt::World
     class Camera
     {
     public:
+        virtual ~Camera();
+
+    protected:
         Camera();
-        ~Camera();
 
     public:
         //Camera logic
-        void Update();
+        virtual void Update();
 
         void SetPosition(glm::vec3 const &pos);
         void Move(glm::vec3 const &move_vec);
 
         void SetOrientation(glm::vec3 const &angle_vector);
         void Rotate(glm::vec3 const &axis, float radian_angle);
-        void Rotate(float angle_x, float angle_y, float angle_z = 0);
+        void Rotate(float angle_x, float angle_y, float angle_z = 0.0f);
         void Rotate(glm::vec3 const &angle_vector);
 
         inline glm::vec3 &GetPosition() { return m_position; }
@@ -30,9 +32,11 @@ namespace Volt::World
         inline glm::mat4 GetOrientation() const { return glm::mat4_cast(glm::normalize(glm::quat(m_rotation))); }
         inline glm::quat GetQuatOrientation() const { return glm::normalize(glm::quat(m_rotation)); }
 
-        glm::vec3 const &GetForward() const;
-        glm::vec3 const &GetRightSide() const;
-        glm::mat4 const &GetViewMatrix() const;
+        glm::vec3 const &GetForward() const { return m_direction; }
+        glm::vec3 const &GetRightSide() const { return m_right; }
+        glm::mat4 const &GetViewMatrix() const { return m_view; }
+        glm::mat4 const &GetProjectionMatrix() const { return m_projection; }
+        glm::mat4 const &GetViewProjectionMatrix() const { return m_viewProjection; }
 
         //Mouse utils
         void SetMouseSensitivity(glm::vec3 const &);
@@ -44,10 +48,26 @@ namespace Volt::World
 
         void FeedMouseInput(float xPos, float yPos);
 
-    private:
+    protected:
         glm::vec3   m_position, m_rotation, m_direction, m_right;
         glm::vec3   m_sensitivity;
+        glm::vec2   m_prevMousePosition;        
         glm::mat4   m_view;
-        glm::vec2   m_prevMousePosition;
+        glm::mat4   m_projection;
+        glm::mat4   m_viewProjection;
+    };
+
+    class PerspectiveCamera : public Camera
+    {
+    public:
+        PerspectiveCamera(float fov, float aspect, float near, float far);
+        virtual ~PerspectiveCamera() = default;
+    };
+
+    class OrthographicCamera : public Camera
+    {
+    public:
+        OrthographicCamera(float left, float right, float bottom, float top, float near = -1.0f, float far = 1.0f);
+        virtual ~OrthographicCamera() = default;
     };
 }

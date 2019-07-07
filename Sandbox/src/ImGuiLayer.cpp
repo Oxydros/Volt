@@ -22,15 +22,14 @@ layout (location = 1) in vec4 inColor;
 layout (location = 2) in vec2 inTexCoord;
 
 uniform mat4 model;
-uniform mat4 view;
-uniform mat4 projection;
+uniform mat4 viewProjection;
 
 out vec4 vertexColor;
 out vec2 TexCoord;
 
 void main()
 {
-    gl_Position = projection * view * model * vec4(inPos, 1.0);
+    gl_Position = viewProjection * model * vec4(inPos, 1.0);
     vertexColor = inColor;
     TexCoord = inTexCoord;
 }
@@ -55,7 +54,7 @@ void main()
 }
 )";
 
-ImGuiLayer::ImGuiLayer() : Layer("ImGui")
+ImGuiLayer::ImGuiLayer() : Layer("ImGui"), m_camera(45.0f, 800.0f / 600.0f, 0.1f, 100.0f)
 {
     m_shader = Volt::Graphics::Shader::CreateShader(vertexShaderSrc, pixelShaderSrc);
 
@@ -112,11 +111,6 @@ ImGuiLayer::ImGuiLayer() : Layer("ImGui")
 
     m_vertexArray->Unbind();
 
-    glViewport(0, 0, 800, 600);
-    glm::mat4 projection;
-    projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
-    m_shader->SetMat4f("projection", projection);
-
     m_rot = glm::vec4(0);
     m_pos = glm::vec3(0);
     m_mousePressed = false;
@@ -159,7 +153,7 @@ void ImGuiLayer::OnUpdate()
 
     m_shader->SetFloat("mix_ratio", m_mix);
     m_shader->SetMat4f("model", model);
-    m_shader->SetMat4f("view", m_camera.GetViewMatrix());
+    m_shader->SetMat4f("viewProjection", m_camera.GetViewProjectionMatrix());
 
     glDrawElements(GL_TRIANGLES, m_vertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, 0);
 }
