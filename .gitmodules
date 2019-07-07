@@ -13,3 +13,6 @@
 	path = Volt/vendor/glm
 	url = https://github.com/g-truc/glm
 	branch = 0.9.9.5
+[submodule "Volt/vendor/stb"]
+	path = Volt/vendor/stb
+	url = https://github.com/nothings/stb

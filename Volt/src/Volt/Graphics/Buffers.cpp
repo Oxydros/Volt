@@ -10,12 +10,14 @@ namespace Volt::Graphics
         {
             //FLOAT
             case VertexElementType::FLOAT:  return sizeof(float);
+            case VertexElementType::VEC_2F: return sizeof(float) * 2;
             case VertexElementType::VEC_3F: return sizeof(float) * 3;
             case VertexElementType::VEC_4F: return sizeof(float) * 4;
             case VertexElementType::MAT_3F: return sizeof(float) * 3 * 3;
             case VertexElementType::MAT_4F: return sizeof(float) * 4 * 4;   
             //INT
             case VertexElementType::INT:    return sizeof(int);
+            case VertexElementType::VEC_2I: return sizeof(int) * 2;
             case VertexElementType::VEC_3I: return sizeof(int) * 3;
             case VertexElementType::VEC_4I: return sizeof(int) * 4;
             case VertexElementType::MAT_3I: return sizeof(int) * 3 * 3;
@@ -33,12 +35,14 @@ namespace Volt::Graphics
         {
             //FLOAT
             case VertexElementType::FLOAT:  return 1;
+            case VertexElementType::VEC_2F: return 2;
             case VertexElementType::VEC_3F: return 3;
             case VertexElementType::VEC_4F: return 4;
             case VertexElementType::MAT_3F: return 3 * 3;
             case VertexElementType::MAT_4F: return 4 * 4;   
             //INT
             case VertexElementType::INT:    return 1;
+            case VertexElementType::VEC_2I: return 2;
             case VertexElementType::VEC_3I: return 3;
             case VertexElementType::VEC_4I: return 4;
             case VertexElementType::MAT_3I: return 3 * 3;

@@ -62,6 +62,7 @@ project "Volt"
 
    includedirs {
       "Volt/vendor/spdlog/include",
+      "Volt/vendor/stb",
       "Volt/vendor/ImGui",
       "Volt/vendor/glad/include",
       "Volt/vendor/GLFW/include",
@@ -107,6 +108,7 @@ project "Sandbox"
       "Volt/vendor/spdlog/include",
       "Volt/vendor/glad/include",
       "Volt/vendor/ImGui",
+      "Volt/vendor/stb",
       "Volt/vendor/glm/include",
       "Volt/src",
       "%{prj.name}/src",

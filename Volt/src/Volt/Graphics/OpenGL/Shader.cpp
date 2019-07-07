@@ -74,6 +74,14 @@ namespace Volt::Graphics::OpenGL
     }
 
     //Quick and dirty to setup camera system asap
+    void Shader::SetInt(std::string const &uniform_name, int value)
+    {
+        int uniformLocation = glGetUniformLocation(m_programId, uniform_name.c_str());
+        VOLT_ASSERT(uniformLocation != -1, "Unable to find uniform {} in shader", uniform_name);
+        glUseProgram(m_programId);
+        glUniform1i(uniformLocation, value);
+    }
+
     void Shader::SetFloat(std::string const &uniform_name, float value)
     {
         int uniformLocation = glGetUniformLocation(m_programId, uniform_name.c_str());

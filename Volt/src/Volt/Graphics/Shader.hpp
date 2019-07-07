@@ -12,6 +12,7 @@ namespace Volt::Graphics
 
     public:
         static ShaderPtr CreateShader(std::string const &vertexSrc, std::string const &pixelSrc);
+
     public:
         Shader() = default;
         virtual ~Shader() = default;
@@ -19,6 +20,8 @@ namespace Volt::Graphics
         virtual void Bind() = 0;
 
         //TODO === Improve this
+        virtual void SetInt(std::string const &uniform_name, int value) = 0;
+
         virtual void SetFloat(std::string const &uniform_name, float value) = 0;
         virtual void SetVec3f(std::string const &uniform_name, glm::vec3 const &value) = 0;
         virtual void SetVec4f(std::string const &uniform_name, glm::vec4 const &value) = 0;

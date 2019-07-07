@@ -11,8 +11,8 @@ namespace Volt::Graphics
     enum class VertexElementType : u_int8_t
     {
         UNKNOWN = 0,
-        FLOAT, VEC_3F, VEC_4F, MAT_3F, MAT_4F,
-        INT, VEC_3I, VEC_4I, MAT_3I, MAT_4I
+        FLOAT, VEC_2F, VEC_3F, VEC_4F, MAT_3F, MAT_4F,
+        INT, VEC_2I, VEC_3I, VEC_4I, MAT_3I, MAT_4I
     };
 
     //Return the size in byte of a VertexElementType

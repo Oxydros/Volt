@@ -5,6 +5,7 @@
 #include "Volt/Layer.hpp"
 
 #include "Volt/Graphics/Shader.hpp"
+#include "Volt/Graphics/Texture.hpp"
 #include "Volt/Graphics/Buffers.hpp"
 
 #include "Volt/World/Camera.hpp"
@@ -32,7 +33,12 @@ private:
     bool m_show_demo_window = true;
     bool m_show_another_window = false;
 
-    unsigned int                                        m_vertexArrayObj;
+    // unsigned int                                        m_texture1;
+    // unsigned int                                        m_texture2;
+    float                                               m_mix;
+
+    Volt::Graphics::Texture::TexturePtr                 m_texture1;
+    Volt::Graphics::Texture::TexturePtr                 m_texture2;
     Volt::Graphics::Shader::ShaderPtr                   m_shader;
     Volt::Graphics::VertexArray::VertexArrayPtr         m_vertexArray;
 

@@ -18,6 +18,7 @@
 #include <unordered_set>
 
 #include <glm/glm.hpp>
+#include <stb_image.h>
 
 #include "Volt/Core.hpp"
 #include "Volt/Logger.hpp"

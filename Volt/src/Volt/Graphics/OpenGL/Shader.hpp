@@ -12,6 +12,8 @@ namespace Volt::Graphics::OpenGL
 
         void Bind() override;
 
+        void SetInt(std::string const &uniform_name, int value) override;
+
         void SetFloat(std::string const &uniform_name, float value) override;
         void SetVec3f(std::string const &uniform_name, glm::vec3 const &value) override;
         void SetVec4f(std::string const &uniform_name, glm::vec4 const &value) override;

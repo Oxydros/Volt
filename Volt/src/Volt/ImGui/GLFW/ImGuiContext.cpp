@@ -1,3 +1,5 @@
+#include <vpch.h>
+
 #include "Volt/ImGui/GLFW/ImGuiContext.hpp"
 #include "Volt/Window/Window.hpp"
 

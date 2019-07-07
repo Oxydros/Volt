@@ -12,6 +12,7 @@ GLenum VertexElementTypeToOpenGL(Volt::Graphics::VertexElementType type)
     {
         //FLOAT
         case VertexElementType::FLOAT:
+        case VertexElementType::VEC_2F:
         case VertexElementType::VEC_3F:
         case VertexElementType::VEC_4F:
         case VertexElementType::MAT_3F:
@@ -19,6 +20,7 @@ GLenum VertexElementTypeToOpenGL(Volt::Graphics::VertexElementType type)
             return GL_FLOAT;
         //INT
         case VertexElementType::INT:
+        case VertexElementType::VEC_2I:
         case VertexElementType::VEC_3I:
         case VertexElementType::VEC_4I:
         case VertexElementType::MAT_3I:
