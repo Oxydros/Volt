@@ -22,14 +22,14 @@ layout (location = 1) in vec4 inColor;
 layout (location = 2) in vec2 inTexCoord;
 
 uniform mat4 model;
-uniform mat4 viewProjection;
+uniform mat4 modelViewProjection;
 
 out vec4 vertexColor;
 out vec2 TexCoord;
 
 void main()
 {
-    gl_Position = viewProjection * model * vec4(inPos, 1.0);
+    gl_Position = modelViewProjection * vec4(inPos, 1.0);
     vertexColor = inColor;
     TexCoord = inTexCoord;
 }
@@ -127,6 +127,7 @@ ImGuiLayer::ImGuiLayer() : Layer("ImGui"), m_camera(45.0f, 800.0f / 600.0f, 0.1f
     m_texture2->SetMinify(Volt::Graphics::TextureMin::LINEAR);
     m_texture2->SetMagnify(Volt::Graphics::TextureMag::LINEAR);
 
+    m_shader->Bind();
     m_shader->SetInt("ourTexture", 0);
     m_shader->SetInt("ourTexture2", 1);
     m_mix = 0.2f;
@@ -152,8 +153,7 @@ void ImGuiLayer::OnUpdate()
     m_vertexArray->Bind();
 
     m_shader->SetFloat("mix_ratio", m_mix);
-    m_shader->SetMat4f("model", model);
-    m_shader->SetMat4f("viewProjection", m_camera.GetViewProjectionMatrix());
+    m_shader->SetMat4f("modelViewProjection", m_camera.GetViewProjectionMatrix() * model);
 
     glDrawElements(GL_TRIANGLES, m_vertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, 0);
 }

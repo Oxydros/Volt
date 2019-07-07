@@ -78,7 +78,6 @@ namespace Volt::Graphics::OpenGL
     {
         int uniformLocation = glGetUniformLocation(m_programId, uniform_name.c_str());
         VOLT_ASSERT(uniformLocation != -1, "Unable to find uniform {} in shader", uniform_name);
-        glUseProgram(m_programId);
         glUniform1i(uniformLocation, value);
     }
 
@@ -86,7 +85,6 @@ namespace Volt::Graphics::OpenGL
     {
         int uniformLocation = glGetUniformLocation(m_programId, uniform_name.c_str());
         VOLT_ASSERT(uniformLocation != -1, "Unable to find uniform {} in shader", uniform_name);
-        glUseProgram(m_programId);
         glUniform1f(uniformLocation, value);
     }
 
@@ -94,7 +92,6 @@ namespace Volt::Graphics::OpenGL
     {
         int uniformLocation = glGetUniformLocation(m_programId, uniform_name.c_str());
         VOLT_ASSERT(uniformLocation != -1, "Unable to find uniform {} in shader", uniform_name);
-        glUseProgram(m_programId);
         glUniform3f(uniformLocation, value.x, value.y, value.z);
     }
 
@@ -102,7 +99,6 @@ namespace Volt::Graphics::OpenGL
     {
         int uniformLocation = glGetUniformLocation(m_programId, uniform_name.c_str());
         VOLT_ASSERT(uniformLocation != -1, "Unable to find uniform {} in shader", uniform_name);
-        glUseProgram(m_programId);
         glUniform4f(uniformLocation, value.x, value.y, value.z, value.w);
     }
 
@@ -110,7 +106,6 @@ namespace Volt::Graphics::OpenGL
     {
         int uniformLocation = glGetUniformLocation(m_programId, uniform_name.c_str());
         VOLT_ASSERT(uniformLocation != -1, "Unable to find uniform {} in shader", uniform_name);
-        glUseProgram(m_programId);
         glUniformMatrix3fv(uniformLocation, 1, GL_FALSE, &value[0][0]);
     }
 
@@ -118,7 +113,6 @@ namespace Volt::Graphics::OpenGL
     {
         int uniformLocation = glGetUniformLocation(m_programId, uniform_name.c_str());
         VOLT_ASSERT(uniformLocation != -1, "Unable to find uniform {} in shader", uniform_name);
-        glUseProgram(m_programId);
         glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, &value[0][0]);
     }
 }
