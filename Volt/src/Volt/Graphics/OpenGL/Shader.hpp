@@ -7,7 +7,7 @@ namespace Volt::Graphics::OpenGL
     class Shader : public Volt::Graphics::Shader
     {
     public:
-        Shader(std::string const &vertexSrc, std::string const &pixelSrc);
+        Shader(std::string const &shaderPath);
         virtual ~Shader();
 
         void Bind() override;
@@ -21,7 +21,10 @@ namespace Volt::Graphics::OpenGL
         void SetMat3f(std::string const &uniform_name, glm::mat3 const &value) override;
         void SetMat4f(std::string const &uniform_name, glm::mat4 const &value) override;
 
+        void Reload() override;
+
     private:
-        uint32_t    m_programId;
+        std::string         m_shaderPath;
+        uint32_t            m_programId;
     };
 }

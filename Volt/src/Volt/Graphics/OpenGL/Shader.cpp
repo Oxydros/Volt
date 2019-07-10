@@ -6,18 +6,17 @@
 
 namespace Volt::Graphics::OpenGL
 {
-    Shader::Shader(std::string const &vertexSrc, std::string const &pixelSrc)
-        : m_programId(0)
+
+    GLuint CompileShader(GLchar const *src, GLenum shaderType, int &success, char *infoLog)
     {
+        GLuint vertexShaderID = glCreateShader(shaderType);
 
-        int  success;
-        char infoLog[512];
-
-        GLuint vertexShaderID = glCreateShader(GL_VERTEX_SHADER);
-        VOLT_ASSERT(vertexShaderID != 0, "Couldn't create vertex Shader")
-
-
-        const GLchar *src = vertexSrc.c_str();
+        if (vertexShaderID == 0)
+        {
+            success = 0;
+            std::strncpy(infoLog, "Call to glCreateShader failed", 512);
+            return -1;
+        }
 
         glShaderSource(vertexShaderID, 1, &src, NULL);
         glCompileShader(vertexShaderID);
@@ -27,24 +26,30 @@ namespace Volt::Graphics::OpenGL
         if(!success)
         {
             glGetShaderInfoLog(vertexShaderID, 512, NULL, infoLog);
-            VOLT_ASSERT(false, "Error while COMPILING vertex shader : {}", infoLog);
+        }
+        return vertexShaderID;
+    }
+
+    Shader::Shader(std::string const &shaderPath)
+        : m_shaderPath(shaderPath) ,m_programId(0)
+    {
+        std::string vertexSrc, pixelSrc;
+
+        Shader::GetSourcesFromFile(shaderPath, vertexSrc, pixelSrc);
+
+        int  success;
+        char infoLog[512];
+
+        GLuint vertexShaderID = CompileShader(vertexSrc.c_str(), GL_VERTEX_SHADER, success, infoLog);
+        if (!success)
+        {
+            VOLT_ASSERT(false, "Error while compiling vertex shader : {}", infoLog);
         }
 
-        GLuint pixelShaderID = glCreateShader(GL_FRAGMENT_SHADER);
-        VOLT_ASSERT(pixelShaderID != 0, "Couldn't create pixel Shader")
-
-
-        src = pixelSrc.c_str();
-
-        glShaderSource(pixelShaderID, 1, &src, NULL);
-        glCompileShader(pixelShaderID);
-
-        glGetShaderiv(pixelShaderID, GL_COMPILE_STATUS, &success);
-
-        if(!success)
+        GLuint pixelShaderID = CompileShader(pixelSrc.c_str(), GL_FRAGMENT_SHADER, success, infoLog);
+        if (!success)
         {
-            glGetShaderInfoLog(pixelShaderID, 512, NULL, infoLog);
-            VOLT_ASSERT(false, "Error while COMPILING pixel shader : {}", infoLog);
+            VOLT_ASSERT(false, "Error while compiling pixel shader : {}", infoLog);
         }
 
         m_programId = glCreateProgram();
@@ -71,6 +76,51 @@ namespace Volt::Graphics::OpenGL
     void Shader::Bind()
     {
         glUseProgram(m_programId);
+    }
+
+    void Shader::Reload()
+    {
+        std::string vertexSrc, pixelSrc;
+        VOLT_DEB("Reloading shader {}...", m_shaderPath);
+
+        Shader::GetSourcesFromFile(m_shaderPath, vertexSrc, pixelSrc);
+
+        int  success;
+        char infoLog[512];
+
+        GLuint vertexShaderID = CompileShader(vertexSrc.c_str(), GL_VERTEX_SHADER, success, infoLog);
+        if (!success)
+        {
+            VOLT_DEB("Error while compiling vertex shader : {}", infoLog);
+            return;
+        }
+
+        GLuint pixelShaderID = CompileShader(pixelSrc.c_str(), GL_FRAGMENT_SHADER, success, infoLog);
+        if (!success)
+        {
+            VOLT_DEB("Error while compiling pixel shader : {}", infoLog);
+            return;
+        }
+
+        //Re-create program
+        glDeleteProgram(m_programId);
+        uint32_t new_program = glCreateProgram();
+
+        glAttachShader(new_program, vertexShaderID);
+        glAttachShader(new_program, pixelShaderID);
+        glLinkProgram(new_program);
+
+        glGetProgramiv(new_program, GL_LINK_STATUS, &success);
+        glDeleteShader(vertexShaderID);
+        glDeleteShader(pixelShaderID);        
+        if(!success) {
+            glGetProgramInfoLog(new_program, 512, NULL, infoLog);
+            VOLT_DEB("Error while LINKING shaders in program : {}", infoLog);
+            return;
+        }
+        glDeleteProgram(m_programId);
+        VOLT_DEB("Shader successfully recompiled");
+        m_programId = new_program;
     }
 
     //Quick and dirty to setup camera system asap
@@ -117,7 +167,7 @@ namespace Volt::Graphics::OpenGL
     }
 }
 
-Volt::Graphics::Shader::ShaderPtr Volt::Graphics::Shader::CreateShader(std::string const &vertexSrc, std::string const &pixelSrc)
+Volt::Graphics::Shader::ShaderPtr Volt::Graphics::Shader::CreateShader(std::string const &shaderFile)
 {
-    return std::make_unique<Volt::Graphics::OpenGL::Shader>(vertexSrc, pixelSrc);
+    return std::make_unique<Volt::Graphics::OpenGL::Shader>(shaderFile);
 }

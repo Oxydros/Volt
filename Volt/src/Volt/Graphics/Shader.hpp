@@ -11,7 +11,8 @@ namespace Volt::Graphics
         typedef std::unique_ptr<Shader> ShaderPtr;
 
     public:
-        static ShaderPtr CreateShader(std::string const &vertexSrc, std::string const &pixelSrc);
+        static ShaderPtr CreateShader(std::string const &shaderFile = "");
+        static void GetSourcesFromFile(std::string const &filePath, std::string &vertexSrc, std::string &pixelSrc);
 
     public:
         Shader() = default;
@@ -28,5 +29,9 @@ namespace Volt::Graphics
 
         virtual void SetMat3f(std::string const &uniform_name, glm::mat3 const &value) = 0;
         virtual void SetMat4f(std::string const &uniform_name, glm::mat4 const &value) = 0;
+
+        //Help for debugging
+        //Reload the source file of the shader, recompiling it
+        virtual void Reload() {}
     };
 }
