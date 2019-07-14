@@ -37,11 +37,21 @@ private:
 
     Volt::Graphics::Texture::TexturePtr                 m_texture1;
     Volt::Graphics::Texture::TexturePtr                 m_texture2;
-    Volt::Graphics::Shader::ShaderPtr                   m_shader;
-    Volt::Graphics::VertexArray::VertexArrayPtr         m_vertexArray;
 
+    Volt::Graphics::Shader::ShaderPtr                   m_cubeShader;
+    Volt::Graphics::Shader::ShaderPtr                   m_lightShader;
+
+    Volt::Graphics::VertexArray::VertexArrayPtr         m_cubeArray;
+    Volt::Graphics::VertexArray::VertexArrayPtr         m_lightArray;
+
+    glm::vec3                                           m_lightPos;
+    glm::vec3                                           m_lightColor;
     glm::vec3                                           m_rot;
     glm::vec3                                           m_pos;
+
+    float                                               m_ambientStrength = 0.1;
+    float                                               m_specularStrength = 0.5;
+    int                                                 m_shininess = 256;
 
     Volt::World::PerspectiveCamera                      m_camera;
     bool                                                m_mousePressed;
